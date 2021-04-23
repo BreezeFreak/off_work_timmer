@@ -23,13 +23,18 @@ while [ 1=1 ]; do
     echo -n "$(date -u --date @$seconds +%H:%M:%S)\r";
     
     if [ $now -eq $noon_break ];then
-        notify-send -i face-tired " Time off! Go back and relax!";
+        sudo -u joe notify-send -i face-tired " Time off! Go back and relax!";
         kill_notice &
     elif [ $now -eq $off ];then
-        notify-send -i face-cool " Work off! Feed your cat and do some exercise!";
+        sudo -u joe notify-send -i face-cool " Work off! Feed your cat and do some exercise!";
         kill_notice &
     elif [ $(($seconds % 3600)) -eq 0 ];then
-        notify-send -i face-smile " take a break";
+        sudo -u joe notify-send -i face-smile " take a break";
+        kill_notice &
+    fi
+
+    if [ $now -eq $(date -d "today 11:05:00" +%s) ];then
+        sudo -u joe notify-send " Time to order food";
         kill_notice &
     fi
 
